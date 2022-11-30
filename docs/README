@@ -5,8 +5,7 @@ GitHub DevSearch project
 DevSearch is a java library/tool for searching and accessing GitHub developer info. Given the first name, last name and location values of one or more developers, DevSearch uses the GitHub API to identify their profiles and return 
 their public profile info, their repos and their no. of commits in those repos. It does so while honoring the rate limits imposed by GitHub and in the least amount of time possible.
 
-This project is structured as a simple java project that can be built and run over command line. Because this project is developed on the Eclipse IDE, it can also work as an eclipse project. Any required dependencies will be provided as jars
-along with the source code. Core of this project can be packaged as a library. There is also an accompanying wrapper program that can be run over command line. A build script is provided that makes it easy to perform build, execute and clean operations.
+This project is structured as a simple java project that can be built and run over command line. Because this project is developed on the Eclipse IDE, it can also work as an eclipse project. Any required dependencies will be provided as jars along with the source code. Core of this project can be packaged as a library. There is also an accompanying wrapper program that can be run over command line. A build script is provided that makes it easy to perform build, execute and clean operations.
 
 =====================
 Platform Requirements
