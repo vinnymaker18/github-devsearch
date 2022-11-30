@@ -2,15 +2,11 @@
 GitHub DevSearch project
 ========================
 
-DevSearch is a java library/tool for searching and accessing GitHub developer info. Given the first name, last name
-and location values of one or more developers, DevSearch uses the GitHub API to identify their profiles and return 
-their public profile info, their repos and their no. of commits in those repos. It does so while honoring the rate
-limits imposed by GitHub and in the least amount of time possible.
+DevSearch is a java library/tool for searching and accessing GitHub developer info. Given the first name, last name and location values of one or more developers, DevSearch uses the GitHub API to identify their profiles and return 
+their public profile info, their repos and their no. of commits in those repos. It does so while honoring the rate limits imposed by GitHub and in the least amount of time possible.
 
-This project is structured as a simple java project that can be built and run over command line. Because this project is
-developed on the Eclipse IDE, it can also work as an eclipse project. Any required dependencies will be provided as jars
-along with the source code. Core of this project can be packaged as a library. There is also an accompanying wrapper program
-that can be run over command line. A build script is provided that makes it easy to perform build, execute and clean operations.
+This project is structured as a simple java project that can be built and run over command line. Because this project is developed on the Eclipse IDE, it can also work as an eclipse project. Any required dependencies will be provided as jars
+along with the source code. Core of this project can be packaged as a library. There is also an accompanying wrapper program that can be run over command line. A build script is provided that makes it easy to perform build, execute and clean operations.
 
 =====================
 Platform Requirements
@@ -41,15 +37,12 @@ Build instructions can be found at docs/BUILD file.
 DevSearch features
 ==================
 
-- At the most basic level, DevSearch accepts a list of user entries, with each entry comprising of name and location
-  (possibly empty), searches GitHub for matching users and returns information about them. This should consist of their
-  public profile info, their public repositories and their commit counts. It should do all of this while honoring GitHub’s 
-  api rate limits.
+- At the most basic level, DevSearch accepts a list of user entries, with each entry comprising of name and location (possibly empty), searches GitHub for matching users and returns information about them. This should consist of their
+  public profile info, their public repositories and their commit counts. It should do all of this while honoring GitHub’s api rate limits.
 
 - DevSearch library accepts input data in csv, json formats and output result data in json format.
 
-- DevSearch can work with or without authorization. You can provide access tokens for auth.
-  Rate limits(based on client’s public ip in no auth. case) are honored in both these cases. DevSearch prevents clients
+- DevSearch can work with or without authorization. You can provide access tokens for auth. Rate limits(based on client’s public ip in no auth. case) are honored in both these cases. DevSearch prevents clients
   from getting banned by blocking until rate limits are reset again.
 
 =====================
@@ -57,17 +50,14 @@ DevSearch limitations
 =====================
 
 - Currently, names and locations with commas or spaces dont work.
-- Users having too many repositories can slow down the processing. e.g., if a user has 20 repositories, then 20 api calls
-  have to be made to retrieve info about those repos. If we use the client mode in unauthenticated mode, we only have 60 core
-  calls per hour, so big users can easily exhaust those 60 calls and we will be stuck waiting another hour. It's better to use
-  an authenticated client.
+- Users having too many repositories can slow down the processing. e.g., if a user has 20 repositories, then 20 api calls have to be made to retrieve info about those repos. If we use the client mode in unauthenticated mode, we only have 60 core
+  calls per hour, so big users can easily exhaust those 60 calls and we will be stuck waiting another hour. It's better to use an authenticated client.
 
 ================
 DevSearch usage
 ================
 
-DevSearch library is designed to be easy to use - initialize the api client object with proper credentials and use it to
-read and write search params/results to/from files. CSV and JSON input files are supported and output is always written in
+DevSearch library is designed to be easy to use - initialize the api client object with proper credentials and use it to read and write search params/results to/from files. CSV and JSON input files are supported and output is always written in
 JSON format. Sample code looks like
 
 	GitHubAPIClient client =  new GitHubAPIClient(username, password);	
@@ -85,32 +75,25 @@ JSON format. Sample code looks like
 Authentication in DevSearch
 ===========================
 
-	It's always better to access the api with authentication. GitHub supports authenticating with username/passwords, oauth
-and personal access tokens(PATs). Users can create PATs at https://github.com/settings/tokens. OAuth/PAT tokens support scopes.
-OAuth tokens are typically used by 3rd party web/mobile applications. DevSearch library supports authenticating with username/
-passwords and PATs.
+	It's always better to access the api with authentication. GitHub supports authenticating with username/passwords, oauth and personal access tokens(PATs). Users can create PATs at https://github.com/settings/tokens. OAuth/PAT tokens support scopes.
+OAuth tokens are typically used by 3rd party web/mobile applications. DevSearch library supports authenticating with username/passwords and PATs.
 
 ===========================
 How rate limits are handled
 ===========================
 
-GitHub api differentiates 2 types of calls - core apis and search apis. Because search operations are intensive, separate 
-stricter rate limits apply to search api calls. This means core apis and search apis have separate rate limits. Making a core
-api call won't affect search api limits and vice versa. 
+GitHub api differentiates 2 types of calls - core apis and search apis. Because search operations are intensive, separate stricter rate limits apply to search api calls. This means core apis and search apis have separate rate limits. Making a core
+api call won't affect search api limits and vice versa.
 
 Also, authenticated requests have more relaxed limits. 
 
-			Auth  	| No-Auth
+		Auth  	| No-Auth
 
 Core		5000/hr	| 60/hr
 Search		30/min	| 10/min
 
-DevSearch uses 2 separate queues & threads to run core & search api calls in parallel. Usual pattern is to search for a user 
-on the search thread, get the best match user, push it to core thread queue so that user's data will be retrieved later on that
-thread. Advantage with this approach is for example if search api limits are exhausted, core thread can still run its queries
-and vice versa.
-
-I haven't been able to run any measurements or stress tests unfortunately.
+DevSearch uses 2 separate queues & threads to run core & search api calls in parallel. Usual pattern is to search for a user on the search thread, get the best match user, push it to core thread queue so that user's data will be retrieved later on that
+thread. Advantage with this approach is for example if search api limits are exhausted, core thread can still run its queries and vice versa. I haven't been able to run any measurements or stress tests unfortunately.
 
 =====
 Tests
@@ -132,8 +115,7 @@ Instructions on how to run can be found in the docs/BUILD file.
 Sample Results
 ==============
 
-There is a samples/ subdirectory containing the sample user list in sample.csv and corresponding result in sample-out.json
-Any other files in that directory can be ignored. Also, note that because having commas, white space in names/locations dont
+There is a samples/ subdirectory containing the sample user list in sample.csv and corresponding result in sample-out.json. Any other files in that directory can be ignored. Also, note that because having commas, white space in names/locations dont
 seem to work, they have been stripped.
 
 ==============================
@@ -141,6 +123,3 @@ Ideas for further improvements
 ==============================
 
 - This library can be extended to be a full fledged GitHub Java SDK.
-- With some enhancements, this can be integrated with BlueOptima platform to automatically search and rank users
-  by the quality of their code and other metrics. 
-- 
